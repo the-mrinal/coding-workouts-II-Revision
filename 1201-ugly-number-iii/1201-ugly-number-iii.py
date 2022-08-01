@@ -6,7 +6,7 @@ class Solution:
         ab = (a*b) // math.gcd(a,b) #find lcm ab
         bc = (b*c) // math.gcd(b,c)
         ac = (a*c) // math.gcd(a,c)
-        abc = (a*bc) // math.gcd(a,bc)
+        abc = (ab*c) // math.gcd(ab,c)
         
         def condition(ugly):
             num = ugly//a + ugly // b + ugly // c - ugly //ab - ugly//ac - ugly // bc +  ugly/abc
