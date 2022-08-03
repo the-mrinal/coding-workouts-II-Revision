@@ -17,7 +17,9 @@ class Solution:
                 count += 1
         
         if count == n:
-            return head.next
-
-        prev.next = prev.next.next
+            return prev.next
+        
+        if  prev.next:
+            prev.next = prev.next.next
+        
         return head
