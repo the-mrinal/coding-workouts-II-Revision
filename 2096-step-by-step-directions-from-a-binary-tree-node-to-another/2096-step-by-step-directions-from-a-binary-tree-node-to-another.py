@@ -28,13 +28,8 @@ class Solution:
             if curr.right:
                 stack.append([curr.right,path + 'R'])
         
-         
-        index1 = 0
-        index2 = 0
-        while index1 < len(startS) and index2 < len(destS) and startS[index1] == destS[index2]:
-            index1 += 1
-            index2 += 1
+        while startS and destS and startS[0] == destS[0]:
+            startS = startS[1:]
+            destS = destS[1:]
         
-        startS = startS[index1:]
-        destS = destS[index2:]
         return "U"*len(startS) + destS
