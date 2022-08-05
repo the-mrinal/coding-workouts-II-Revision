@@ -13,7 +13,7 @@ class Solution:
                 return False
             return True
         
-        left = 0
+        left = min(buckets)
         right = max(buckets)
         
         ellipsion = 10**-5
