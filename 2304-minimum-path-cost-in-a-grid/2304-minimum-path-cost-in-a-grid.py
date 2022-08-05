@@ -7,10 +7,10 @@ class Solution:
         
         for i in range(1,m):
             for j in range(n):
-                minVal = float('inf')
+                value = float('inf')
                 for k in range(n):
-                    minVal = min(minVal,moveCost[grid[i - 1][k]][j] + prev[k])
-                curr[j] = minVal + grid[i][j]
+                    value = min(value,prev[k] + moveCost[grid[i - 1][k]][j])
+                curr[j] = value + grid[i][j]
             prev = curr
             curr = [0]*n
         return min(prev)
