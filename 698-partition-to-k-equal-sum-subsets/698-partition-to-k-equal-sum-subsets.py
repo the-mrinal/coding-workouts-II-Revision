@@ -33,6 +33,7 @@ class Solution:
                         taken[i] = '1'
 
                         if backtrack(i + 1,count,currSum + nums[i]):
+                            cache[key] = True
                             return True
 
                         taken[i] = '0'
