@@ -5,7 +5,8 @@ class Solution:
         right = n - 1
         
         def condition(mid):
-            if mid > 0 and nums[mid] < nums[mid - 1]:
+            # if not 0 and dsc then move 
+            if mid > 0 and nums[mid] < nums[mid - 1]: # alternaring asc and dec
                 return True
             return False
         
