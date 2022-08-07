@@ -1,24 +1,25 @@
 class Solution:
     def equalizeWater(self, buckets: List[int], loss: int) -> float:
-        
-        def condition(x):
-            out = 0
-            ind = 0
-            for w in buckets:
-                if w > x:
-                    out += (w - x)
-                else:
-                    ind += (x - w)
-            if (out - (out * (loss/100))) >= ind:
-                return False
-            return True
-        
         left = min(buckets)
         right = max(buckets)
         
-        ellipsion = 10**-5
+        elipsion = 10 ** -5
         
-        while right - left > ellipsion: # till the diff beetween them is greater than 0.00005
+        def condition(target):
+            out = 0
+            ind = 0
+            for num in buckets:
+                if num > target:
+                    out += (num - target)
+                else:
+                    ind += (target - num)
+            
+            if out - (out * (loss/100)) >= ind:
+                return False
+            return True
+        
+        
+        while right - left > elipsion:
             mid = float(left + (right - left) / 2)
             
             if condition(mid):
@@ -27,4 +28,3 @@ class Solution:
                 left = mid
         
         return left
-        
