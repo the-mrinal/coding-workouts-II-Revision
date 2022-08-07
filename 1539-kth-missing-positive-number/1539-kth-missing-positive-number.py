@@ -1,10 +1,20 @@
 class Solution:
     def findKthPositive(self, arr: List[int], k: int) -> int:
-        count = 0
-        index = 1
-        while count < k:
-            if index not in arr:
-                count += 1
-            index += 1
+        left = 0
+        right = len(arr)
         
-        return index - 1
+        
+        def condition(mid):
+            if arr[mid] - mid - 1 >= k:
+                return True
+            return False
+        
+        while left < right:
+            mid = left + (right - left) // 2
+            
+            if condition(mid):
+                right = mid
+            else:
+                left = mid + 1
+        
+        return left + k
