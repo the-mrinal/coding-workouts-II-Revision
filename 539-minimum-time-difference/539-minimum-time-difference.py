@@ -1,25 +1,18 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        timeArr = []
+        time = []
         
-        def convert(time):
-            return int(time[:2])*60 + int(time[3:])
+        def convertTime(t):
+            return (int(t[:2])*60 + int(t[3:]))
         
-        
-        for time in timePoints:
-            timeArr.append(convert(time))
-        timeArr.sort()
-        
-        n = len(timeArr)
-
-        minDiff = float('inf')
-        # print()
-        for x, y in zip(timeArr, timeArr[1:] + timeArr[:1]):
-            minDiff = min(minDiff,(y - x)%(24*60))
-        
-        return minDiff
-            
-            
+        for t in timePoints:
+            time.append(convertTime(t))
+        time.sort()
+        mindiff = 999999
+        for x,y in zip(time,time[1:]+time[:1]): # for handling cirluar ie,first will come after last
+            diff = (y - x)%(24*60)
+            mindiff = min(diff,mindiff)
+        return mindiff
             
             
             
