@@ -2,29 +2,30 @@ class Solution:
     def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
         left = min(bloomDay)
         right = max(bloomDay)
-        n = len(bloomDay)
-        if m*k > n:
+        
+        if m*k > len(bloomDay):
             return -1
         
-        def condition(bloom):
-            flowers = 0
+        def condition(targetDay):
             bouq = 0
-            for days in bloomDay:
-                if days > bloom:
-                    flowers = 0
+            flower = 0
+            for day in bloomDay:
+                if day > targetDay:
+                    flower = 0
                 else:
-                    flowers = flowers + 1
-                    bouq += flowers // k
-                    flowers = flowers % k
+                    flower += 1
+                    bouq += flower // k
+                    flower = flower % k
 
             return bouq >= m
-    
+        
         while left < right:
             mid = left + (right - left) // 2
-            
             if condition(mid):
                 right = mid
             else:
                 left = mid + 1
         
+        
         return left
+                    
