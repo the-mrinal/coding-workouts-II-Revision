@@ -1,29 +1,24 @@
 class Solution:
-    def longestPalindrome(self, s: str) -> str:
-        n = len(s)
-        maxSize = 0
+    def longestPalindrome(self, nums: str) -> str:
+        n = len(nums)
+        maxCount = 0
         maxVal = ""
-        
         def findP(left,right):
-            nonlocal maxSize,maxVal,n
-            currMax = 0
-            currVal = ""
-            
-            while left >= 0 and right < n and s[left] == s[right]:
-                if left != right:
-                    currMax += 2
+            nonlocal maxCount,maxVal
+            count = 0
+            while left >= 0 and right < n and nums[left] == nums[right]:
+                if left == right:
+                    count += 1
                 else:
-                    currMax += 1
-                left -=1 
+                    count += 2
+                left -= 1
                 right += 1
-            
-            if currMax > maxSize:
-                maxSize = currMax
-                maxVal = s[left +1 : right]
-            
+            if maxCount < count:
+                maxCount = count
+                maxVal = nums[left + 1:right]
         
         for i in range(n):
             findP(i,i)
-            findP(i,i+1)
+            findP(i,i + 1)
         
         return maxVal
