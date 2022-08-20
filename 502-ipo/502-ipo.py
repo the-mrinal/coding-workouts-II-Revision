@@ -16,11 +16,11 @@ class Solution:
         
         for i in range(k):
             while self.minCapHeap and self.minCapHeap[0][0] <= availCapital:
-                cap,index = heappop(self.minCapHeap)
-                heappush(self.maxAvailProfit,[-profits[index],cap])
+                _,index = heappop(self.minCapHeap)
+                heappush(self.maxAvailProfit,-profits[index])
             
             if not self.maxAvailProfit:
                 break
-            availCapital += -heappop(self.maxAvailProfit)[0]
+            availCapital += -heappop(self.maxAvailProfit)
         
         return availCapital
