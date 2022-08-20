@@ -1,24 +1,24 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         cache = {}
-        def helper(base,power):
+        def dfs(power):
             if power == 1:
-                return base
-            if power == 0:
+                return x
+            elif power == 0:
                 return 1
-            if (base,power) in cache:
-                return cache[(base,power)]
+            elif power == 2:
+                return x * x
+            if power not in cache:
+                mid = power // 2
+                otherMid = power - mid
+                ans1 = dfs(mid)
+                ans2 = dfs(otherMid)
+                cache[power] = ans1 * ans2
             
-            mid = power // 2
-            otherMid = power - mid
-            
-            cache[(base,power)] =  helper(base,mid) * helper(base,otherMid)
-            
-            return cache[(base,power)]
+            return cache[power]
         
         if n < 0:
-            n = -n
             x = 1/x
+            n = -n
+        return dfs(n)
         
-        
-        return helper(x,n)
