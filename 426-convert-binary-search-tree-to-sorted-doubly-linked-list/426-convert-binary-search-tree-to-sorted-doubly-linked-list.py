@@ -11,29 +11,29 @@ class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
             return root
-        st = []
+        stack = []
         curr = root
         prev = None
-        head = None
+        new_head = None
         
-        while st or curr:
+        while curr or stack:
             while curr:
-                st.append(curr)
+                stack.append(curr)
                 curr = curr.left
             
-            curr = st.pop()
+            curr = stack.pop()
+            
             if prev is None:
-                curr.left = prev
-                head = curr
+                new_head = curr
             else:
-                curr.left = prev
                 prev.right = curr
             
+            curr.left = prev
             prev = curr
+            
             curr = curr.right
         
+        new_head.left = prev
+        prev.right = new_head
         
-        prev.right = head
-        head.left = prev
-        
-        return head
+        return new_head
