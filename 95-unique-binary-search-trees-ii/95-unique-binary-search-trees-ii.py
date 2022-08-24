@@ -8,24 +8,20 @@ class Solution:
     def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         if n == 0:
             return []
-        
-        return self.helper(1,n)
-    
-    
-    def helper(self,start,end):
-        if start > end:
-            return [None]
-        ans = []
-        for curr in range(start,end + 1):
+        def generateBST(start,end):
+            if start > end:
+                return [None]
+            ans = []
+            for i in range(start,end + 1):
+                left = generateBST(start,i - 1)
+                right = generateBST(i+1,end)
+                
+                for l in left:
+                    for r in right:
+                        curr = TreeNode(i)
+                        curr.left = l
+                        curr.right = r
+                        ans.append(curr)
             
-            left = self.helper(start,curr - 1)
-            right = self.helper(curr+1,end)
-            
-            for l in left:
-                for r in right:
-                    node = TreeNode(curr)
-                    node.left = l
-                    node.right = r
-                    ans.append(node)
-            
-        return ans
+            return ans
+        return generateBST(1,n)
