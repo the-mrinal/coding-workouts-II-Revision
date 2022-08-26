@@ -1,19 +1,17 @@
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
-        minHeap = []
+        countMap = defaultdict(int)
         
-        for start,end in intervals:
-            heappush(minHeap,[start,1])
-            heappush(minHeap,[end,-1])
+        for st,end in intervals:
+            countMap[st] += 1
+            countMap[end] -= 1
         
-        count = 0
-        maxCount = 0
-        while minHeap:
-            curr,state = heappop(minHeap)
-            
-            count += state
-            
-            maxCount = max(maxCount,count)
-            
+        keys = list(countMap.keys())
+        keys.sort()
+        minRoom = 0
+        currRoom = 0
+        for k in keys:
+            currRoom += countMap[k]
+            minRoom = max(minRoom,currRoom)
         
-        return maxCount
+        return minRoom
