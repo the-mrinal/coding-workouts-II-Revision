@@ -1,16 +1,12 @@
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
-        minHeap = []
-        for st,en in points:
-            heappush(minHeap,[en,st])
+        points.sort(key = lambda x:x[1])
         
         count = 1
-        curr_max = minHeap[0][0]
-        while minHeap:
-            en,st = heappop(minHeap)
-            
-            if st > curr_max:
-                count += 1
-                curr_max = en
+        currMax = points[0][1]
         
+        for i in range(1,len(points)):
+            if currMax < points[i][0]:
+                count += 1
+                currMax = points[i][1]
         return count
