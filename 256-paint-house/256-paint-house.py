@@ -1,33 +1,15 @@
 class Solution:
     def minCost(self, costs: List[List[int]]) -> int:
         n = len(costs)
-        cache = {}
-        def minCostDP(index,prevC):
-            nonlocal cache
-            if index == n:
-                return 0
-            
-            key = (index,prevC)
-            if prevC == -1:
-                cache[(index,prevC)] = min(costs[index][0] + minCostDP(index +1,0),costs[index][1] + minCostDP(index +1,1),costs[index][2] + minCostDP(index +1,2))
-                return cache[(index,prevC)]
-            
-            
-            if key not in cache:
-                ans1 = 0
-                ans2 = 0
-                if prevC == 0:
-                    ans1 = costs[index][1] + minCostDP(index +1,1)
-                    ans2 = costs[index][2] + minCostDP(index+1,2)
-                elif prevC == 1:
-                    ans1 = costs[index][0] + minCostDP(index +1,0)
-                    ans2 = costs[index][2] + minCostDP(index+1,2)
-                else:
-                    ans1 = costs[index][1] + minCostDP(index +1,1)
-                    ans2 = costs[index][0] + minCostDP(index+1,0)
-                cache[key] = min(ans1,ans2)
-            
-            return cache[key]
+        dp = [[0]*3 for _ in range(n)]
         
-        minCostDP(0,-1)
-        return cache[(0,-1)]
+        dp[0][0] = costs[0][0]
+        dp[0][1] = costs[0][1]        
+        dp[0][2] = costs[0][2]        
+        
+        for i in range(1,n):
+            dp[i][0] = costs[i][0] + min(dp[i-1][1],dp[i-1][2])
+            dp[i][1] = costs[i][1] + min(dp[i-1][0],dp[i-1][2])
+            dp[i][2] = costs[i][2] + min(dp[i-1][1],dp[i-1][0])
+    
+        return min(dp[n-1])
