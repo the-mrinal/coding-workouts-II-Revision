@@ -5,20 +5,18 @@ class Solution:
         
         def condition(mid):
             count = 1
-            currVal = 0
-            for num in nums:
-                currVal += num
-                
-                if currVal > mid:
-                    currVal = num
+            currSum = 0
+            for n in nums:
+                currSum += n
+                if currSum > mid:
+                    currSum = n
                     count += 1
                 if count > m:
                     return False
-            
             return True
         
         while left < right:
-            mid = left + (right - left) // 2
+            mid = left + (right - left)//2
             
             if condition(mid):
                 right = mid
