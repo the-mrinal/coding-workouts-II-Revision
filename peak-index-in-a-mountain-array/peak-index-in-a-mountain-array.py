@@ -1,11 +1,11 @@
 class Solution:
-    def peakIndexInMountainArray(self, nums: List[int]) -> int:
-        n = len(nums)
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+        n = len(arr)
         left = 1
         right = n - 2
         
         def condition(mid):
-            if nums[mid + 1] >= nums[mid]:
+            if arr[mid + 1] >= arr[mid]:
                 return False
             return True
         
